@@ -6,7 +6,7 @@ if [ -f .env ]; then
 fi
 
 rm -r ./nupkg/monads.*
-dotnet pack ./Monads/monads.csproj -o ./nupkg &&
+dotnet pack ./src/monads.csproj -o ./nupkg &&
 
 dotnet nuget push ./nupkg/monads.*.nupkg \
     --api-key $GITHUB_ACCESS_TOKEN \
