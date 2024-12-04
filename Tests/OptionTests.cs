@@ -146,4 +146,23 @@ public class OptionTests(ITestOutputHelper testOutputHelper)
         Assert.Equal(none, Option<string>.None());
         
     }
+
+    [Fact]
+    public void ShouldCheckIfEmpty()
+    {
+        var someValue = "blablabla";
+        string? noneValue = null;
+        decimal defaultValue = default;
+        DateTime dateTimeValue = default;
+
+        Option<string> optionSome = Option<string>.Some(someValue);
+        Option<string> optionNone = noneValue;
+        ValueOption<decimal> optionDefault = defaultValue;
+        ValueOption<DateTime> dateOption = dateTimeValue;
+
+        Assert.False(optionSome.IsNone);
+        Assert.True(optionNone.IsNone);
+        Assert.True(optionDefault.IsNone);
+        Assert.True(dateOption.IsNone);
+    }
 }

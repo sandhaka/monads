@@ -9,6 +9,8 @@ public struct Option<T> : IEquatable<Option<T>> where T : class
     public static Option<T> None() => new();
     public static Option<T> Some(T value) => new() { _content = value };
 
+    public bool IsNone => _content is null;
+
     public Option<TResult> Map<TResult>(Func<T, TResult> map) where TResult : class => 
         new() { _content = _content is not null ? map(_content) : null };
     public ValueOption<TResult> MapValue<TResult>(Func<T, TResult> map) where TResult : struct =>
@@ -24,7 +26,7 @@ public struct Option<T> : IEquatable<Option<T>> where T : class
     public override int GetHashCode() => _content?.GetHashCode() ?? 0;
     public bool Equals(Option<T> other) => _content is null ? other._content is null : _content.Equals(other._content);
     public bool Equals(T? other) => _content is null ? other is null : _content.Equals(other);
-    
+
     public static bool operator ==(Option<T>? a, Option<T>? b) => a is null ? b is null : a.Equals(b);
     public static bool operator !=(Option<T>? a, Option<T>? b) => !(a == b);
     public static bool operator ==(Option<T>? a, T? b) => a is null ? b is null : a.Value.Equals(b);

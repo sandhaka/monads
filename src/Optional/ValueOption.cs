@@ -7,6 +7,8 @@ public struct ValueOption<T> : IEquatable<ValueOption<T>> where T : struct
     public static ValueOption<T> Some(T obj) => new() { _content = obj };
     public static ValueOption<T> None() => new();
 
+    public bool IsNone => _content is null || _content.Value.Equals(default(T));
+
     public Option<TResult> Map<TResult>(Func<T, TResult> map) where TResult : class =>
         _content.HasValue ? Option<TResult>.Some(map(_content.Value)) : Option<TResult>.None();
     public ValueOption<TResult> MapValue<TResult>(Func<T, TResult> map) where TResult : struct =>
