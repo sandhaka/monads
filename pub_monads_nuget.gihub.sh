@@ -5,8 +5,10 @@ if [ -f .env ]; then
   export $(grep -v '^#' .env | xargs)
 fi
 
+dotnet build --configuration Release
+
 rm -r ./nupkg/monads.*
-dotnet pack ./src/monads.csproj -o ./nupkg &&
+dotnet pack --no-build ./src/monads.csproj -o ./nupkg
 
 dotnet nuget push ./nupkg/monads.*.nupkg \
     --api-key $GITHUB_ACCESS_TOKEN \
