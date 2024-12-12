@@ -109,7 +109,7 @@ public class OptionTests(ITestOutputHelper testOutputHelper)
                 "USD" => Option<string>.Some("United state"),
                 "JPY" => Option<string>.Some("Japan"),
                 "EUR" => Option<string>.Some("Europe"),
-                _ => Option<string>.None(),
+                _ => Option<string>.None()
             };
 
         string ToUpperFirst(string s) => s.First().ToString().ToUpper();
@@ -121,7 +121,7 @@ public class OptionTests(ITestOutputHelper testOutputHelper)
                 _ => fullName.Split(" ") switch
                 {
                     [{ } first, { } second] => Option<string>.Some($"{ToUpperFirst(first)}{ToUpperFirst(second)}"),
-                    [{ } whole] => Option<string>.Some(whole[0..2].ToUpper()),
+                    [{ } whole] => Option<string>.Some(whole[..2].ToUpper()),
                     [] => Option<string>.None(),
                     _ => Option<string>.None()
                 }
@@ -152,17 +152,28 @@ public class OptionTests(ITestOutputHelper testOutputHelper)
     {
         var someValue = "blablabla";
         string? noneValue = null;
-        decimal defaultValue = default;
-        DateTime dateTimeValue = default;
+        decimal? decimalNullValue = null;
+        DateTime? dateTimeNullValue = null;
 
         Option<string> optionSome = Option<string>.Some(someValue);
         Option<string> optionNone = noneValue;
-        ValueOption<decimal> optionDefault = defaultValue;
-        ValueOption<DateTime> dateOption = dateTimeValue;
+        ValueOption<decimal> decimaloption = decimalNullValue;
+        ValueOption<DateTime> dateOption = dateTimeNullValue;
 
         Assert.False(optionSome.IsNone);
         Assert.True(optionNone.IsNone);
-        Assert.True(optionDefault.IsNone);
+        Assert.True(decimaloption.IsNone);
         Assert.True(dateOption.IsNone);
+    }
+
+    [Fact]
+    public void ShouldResolvedIfEmptyDefaultValues()
+    {
+        var someValue = 0;
+        var optionInt = ValueOption<int>.Some(someValue);
+        var optionIntFromDefault = ValueOption<decimal>.Some(default);
+
+        Assert.False(optionInt.IsNone);
+        Assert.False(optionIntFromDefault.IsNone);
     }
 }
