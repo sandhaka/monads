@@ -7,8 +7,8 @@
     <Authors>Matteo Tosato</Authors>
     <Copyright>© 2024 Matteo Tosato</Copyright>
     <License>https://opensource.org/license/MIT</License>
-    <Version>1.1.4</Version>
-    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <Version>1.2.0</Version>
+    <TargetFrameworks>netstandard2.1</TargetFrameworks>
   </PropertyGroup>
 
 </Project>
